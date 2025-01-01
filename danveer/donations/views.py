@@ -13,21 +13,17 @@ def register(request):
     return render(request, 'registration.html')
 
 # Login Page
-def login(request):
+def login_view(request):  # Renamed to avoid conflict with django.contrib.auth.login
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request, username=email, password=password)
-        if user != None:
+        if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'invalid email or password')
+            messages.error(request, 'Invalid email or password')
     return render(request, 'login.html')
-
-#logout page
-def logout(request):
-    return render(request, 'logout.html')
 
 # Profile Page
 def profile(request):
