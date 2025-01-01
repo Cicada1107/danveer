@@ -14,6 +14,10 @@ def register(request):
 def login(request):
     return render(request, 'login.html')
 
+#logout page
+def logout(request):
+    return render(request, 'logout.html')
+
 # Profile Page
 def profile(request):
     return render(request, 'profile.html')

@@ -69,6 +69,8 @@ TEMPLATES = [
     },
 ]
 
+LOGOUT_REDIRECT_URL = '/home/'
+
 WSGI_APPLICATION = 'danveer.wsgi.application'
 
 

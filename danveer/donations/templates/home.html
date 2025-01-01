@@ -1,7 +1,22 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
-  <h1>Welcome to Danveer</h1>
-  <p>Connect donors with underprivileged communities!</p>
-  <button class="btn btn-primary">Get Started</button>
+
+<!--Heading Section-->
+<div class="title-section text-left py-5">
+    <img src="{% static 'images/header_img.png' %}" alt="header_section_img" width="626" height="417">
+    <h1>Welcome to Danveer</h1>
+    <p class="lead">Connecting generosity with need.</p>
+    <p class="lead">Everyone one in our society deserves the right to be taken care of. Danveer aims to bridge the gap between people who want to donate to the needy and beneficiaries who could benefit from such people's help.</p>
+    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
+</div>
+
+<!-- Key Features Section -->
+
+
+<!-- Testimonials Section -->
+
+
+<!-- How It Works Section -->
+
 {% endblock %}
