@@ -89,19 +89,14 @@ hr {
 }
 
 /* LOGIN PAGE (login.html) */
-.login-form-wrapper {
-    background: linear-gradient(to right, #7a9889bd, #028c6a82);
-    padding: 20px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    width:auto;
-    height: auto;
-}
-
 .login-page-bg {
-    background-color:rgba(0, 95, 204, 0.71);
+    background: linear-gradient(to right, #0d99fd, #1100cc);
     display: flex;
     justify-content: center;
     align-items: center;
     height:auto /* Full viewport height */
+}
+
+#login_pg_logo{
+    float: left;
 }
