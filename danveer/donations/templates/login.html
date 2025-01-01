@@ -15,6 +15,14 @@
 
     <body class="login-page-bg">
         <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <!-- Back to Home Button -->
+            <div class="back-to-home">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/close_btn.png' %}" alt="Close">
+                </a>
+            </div>
+
+            <!--Content of the page-->
             <div class="row w-100">
                 <!--Logo Section-->
                 <div class="col-md-5 d-flex justify-content-center align-items-center">

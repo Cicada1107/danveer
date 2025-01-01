@@ -97,6 +97,15 @@ hr {
     height:auto /* Full viewport height */
 }
 
-#login_pg_logo{
-    float: left;
+.back-to-home {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.back-to-home img {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    cursor: pointer;
 }
