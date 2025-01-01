@@ -32,7 +32,7 @@ footer {
 }
 
 
-/*HOME PAGE*/
+/*HOME PAGE (home.html)*/
 /* Header Section */
 /* .title-section {
     background: linear-gradient(to right, #0d6efd, #0e00cc);
@@ -86,4 +86,22 @@ footer {
 hr {
     margin: auto;
     border: 1px solid #0d7dfd6a;
+}
+
+/* LOGIN PAGE (login.html) */
+.login-form-wrapper {
+    background: linear-gradient(to right, #7a9889bd, #028c6a82);
+    padding: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width:auto; /* Set a fixed width */
+    text-align: center; /* Center align text inside */
+}
+
+.login-page-bg {
+    background-color:rgba(0, 95, 204, 0.71);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:auto /* Full viewport height */
 }
