@@ -103,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'donations.Customer'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

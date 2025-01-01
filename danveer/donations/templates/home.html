@@ -7,7 +7,7 @@
     <img src="{% static 'images/header_img.png' %}" alt="header_section_img" width="626" height="417">
     <h1>Welcome to Danveer</h1>
     <p class="lead">Connecting generosity with need.</p>
-    <p class="lead">Everyone one in our society deserves the right to be taken care of. Danveer aims to bridge the gap between people who want to donate to the needy and beneficiaries who could benefit from such people's help.</p>
+    <p class="lead">Everyone one in our society deserves the right to be taken care of. Danveer aims to bridge the gap between people who want to donate to the needy who could benefit from such people's help through NGOs.</p>
     <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
 </div>
 
@@ -18,18 +18,25 @@
     <p class="lead">Well its simple:</p>
     <hr id="how-it-works-hr">
     <p class="lead">
-        1. Register yourself as a donor or a beneficiary and setup your profile<br>
-        2. Donate or request a donation or just explore the community to see how you fit in<br>
-        3. Anything is a donation. From life saving medicines to the unused copies lying on your shelf<br>
-        4. Donations are mapped as nearest-location-first basis to beneficiaries
+        1. Register yourself as a donor or a beneficiary and setup your profile.<br>
+        2. Donate or request a donation or just explore the community to see how you fit in.<br>
+        3. Anything is a donation. From life saving medicines to the unused copies lying on your shelf.<br>
+        4. Donations are mapped as nearest-location-first basis to NGOs/beneficiaries who then distribute it to the needy.<br>
+        5. Donations can be tracked and you can check if your donation was indeed distributed.
     </p>
     <hr id="how-it-works-hr">
     <p class="lead">Become an actual hero. Save real lives, here.</p>
 </div>
 
-<!-- Key Features Section -->
+<!--Feed Section-->
+<div class="feed-section text-jsutify py-5">
+    <!--Implement feed as per reference here, once backend is done-->
+</div>
 
+<!--Register Button-->
+    <!--After backend, because only then you will know whether user is not signed in or donor or beneficiary-->
 
 <!-- Testimonials Section -->
+    <!--After the backend, when there is a feature to upload testimonials-->
 
 {% endblock %}
