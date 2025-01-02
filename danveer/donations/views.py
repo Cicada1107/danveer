@@ -43,15 +43,16 @@ def custom_logout(request):
 def profile(request):
     return render(request, 'profile.html')
 
-# Donation Page
-def donation(request):
-    return render(request, 'donation.html')
-
 # Confirm Donation Page
 def confirm(request):
     return render(request, 'confirm.html')
 
-# Request Donation Page
+# Donate Page for Donors
+def donate(request):
+    
+    return render(request, 'donate.html')
+
+# Request Donation Page for NGOs
 def request_donation(request):
     return render(request, 'request_donation.html')
 
