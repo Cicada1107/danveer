@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Customer(AbstractUser):
-    name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     user_type = models.CharField(max_length=11, choices=[('donor', 'Donor'), ('beneficiary', 'Beneficiary/NGO')], blank=False, null=False)
     location = models.CharField(max_length=200)

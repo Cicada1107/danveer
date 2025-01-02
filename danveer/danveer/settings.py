@@ -69,8 +69,6 @@ TEMPLATES = [
     },
 ]
 
-LOGOUT_REDIRECT_URL = '/home/'
-
 WSGI_APPLICATION = 'danveer.wsgi.application'
 
 
@@ -104,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'donations.Customer'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
