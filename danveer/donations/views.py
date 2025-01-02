@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .forms import CustomerRegistrationForm
 
 # Create your views here.
 
@@ -10,7 +11,15 @@ def home(request):
 
 # Registration Page
 def register(request):
-    return render(request, 'registration.html')
+    if request.method == 'POST':
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Save the user to the database
+            login(request, user)  # Automatically log in the user
+            return redirect('home')  # Redirect to the home page
+    else:
+        form = CustomerRegistrationForm()
+    return render(request, 'register.html', {'form': form})
 
 # Login Page
 def login_view(request):  # Renamed to avoid conflict with django.contrib.auth.login

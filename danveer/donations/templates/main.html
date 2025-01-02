@@ -35,9 +35,11 @@
                             <a class="nav-link text-light" href="{% url 'login' %}">Login</a>
                         </li>
                         {% else %}
-                        <!--debug to see if logout ias working or if I am still logged in-->
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="{% url 'register' %}">logged in</a>
+                            <a class="nav-link text-light inactive-navbar-link">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light inactive-navbar-link">Login</a>
                         </li>
                         {% endif %}
                         <li class="nav-item">
@@ -52,10 +54,17 @@
                             <img src="{% static 'images/default_pfp.png' %}" alt="Profile" class="rounded-circle"
                                 style="width: 40px; height: 40px; object-fit: cover;">
                         </a>
+                        {% if not user.is_authenticated %}
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                        </ul>
+                        {% else %}
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'profile' %}">View Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -9,6 +9,10 @@
     justify-content: space-between;
 }
 
+.inactive-navbar-link {
+    color: rgb(160, 211, 218) !important;
+}
+
 .dropdown {
     margin-left: auto;  /* Pushes the profile button to the right */
 }
@@ -109,3 +113,6 @@ hr {
     height: 24px;
     cursor: pointer;
 }
+
+/* REGISTRATION PAGE (Register.html)*/
+
