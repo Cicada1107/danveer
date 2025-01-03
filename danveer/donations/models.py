@@ -79,6 +79,7 @@ class DonationRequest(models.Model):
     beneficiary = models.ForeignKey(Customer, limit_choices_to={'user_type': 'beneficiary'}, related_name='donations_requested', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     received = models.BooleanField(default=False)
+    img = models.ImageField(default='images/default_request_img.png', blank=True, help_text='Provide a picture of organization/needy')
 
     def clean(self):
         """Custom validation logic for quantity field based on category."""
