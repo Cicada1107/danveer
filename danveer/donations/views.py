@@ -82,8 +82,8 @@ def explore(request):
     pending_donations = Donation.objects.filter(pending=True).order_by('-item__date')
     resolved_donations = Donation.objects.filter(pending=False).order_by('item__date')
     context = {
-        'donated_items': unclaimed_donated_items,
-        'donation_requests': unreceived_donation_requests,
+        'unclaimed_donated_items': unclaimed_donated_items,
+        'unreceived_donation_requests': unreceived_donation_requests,
         'pending_donations': pending_donations,
         'resolved_donations': resolved_donations,
     }
