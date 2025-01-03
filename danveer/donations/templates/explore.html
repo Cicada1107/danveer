@@ -4,11 +4,12 @@
 
 <!--Donation Showcase Section-->
 <div class="showcase-section text-center">
-    <h1>Recent Donations</h1>
+    <h2>Recent Donations</h2>
+    <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div class="container">
         {% for donation in resolved_donations %}
         <div class="row">
-            <div class="card col-lg-3" style="width: 10rem; border: solid; ">
+            <div class="card col-lg-3" style="width: 10rem;">
                 <img class="card-img-top" src="{{donation.item.img.url}}" alt="Card image cap">
                 <div class="card-body">
                     <p class="card-text">{{donation.donor}} donated {{donation.item}} to {{donation.beneficiary}}<br></p>
@@ -25,11 +26,12 @@
 <!--DonatedItem/DonationRequest cards Section-->
 <div class="feed-section feed-cards text-center">
     {% if user.user_type == 'beneficiary' %}
-    <h1>Unclaimed Donations Available</h1>
+    <h2>Unclaimed Donations Available</h2>
+    <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div class="container">
         {% for item in unclaimed_donated_items %}
         <div class="row">
-            <div class="col-lg-3 card" style="width: 10rem; border: solid;">
+            <div class="col-lg-3 card" style="width: 10rem;">
                 <img class="card-img-top" src="{{item.img.url}}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{item.item_description}}</h5>
@@ -48,8 +50,10 @@
         </div>
         {% endfor %}
     </div>
+    <hr style="margin-top: 10px; margin-bottom: 10px;">
     {% elif user.user_type == 'donor' %}
-    <h1>Donation Requests</h1>
+    <h2>Donation Requests</h2>
+    <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div class="container">
         {% for d_request in unreceived_donation_requests %}
         <div class="row">
@@ -72,6 +76,7 @@
         </div>
         {% endfor %}
     </div>
+    <hr style="margin-top: 10px; margin-bottom: 10px;">
     {% endif %}
 </div>
 
