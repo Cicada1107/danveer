@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import CustomerRegistrationForm
+from .forms import CustomerRegistrationForm, DonateItemForm, RequestDonationForm
 
 # Create your views here.
 
@@ -49,12 +49,29 @@ def confirm(request):
 
 # Donate Page for Donors
 def donate(request):
-    
-    return render(request, 'donate.html')
+    if(request.method == 'POST'):
+        form = DonateItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            donated_item = form.save(commit=False)
+            donated_item.donor = request.user
+            donated_item.save()
+            return redirect('home')
+    else:
+        form = DonateItemForm()
+    return render(request, 'donate.html', {'form': form})
 
 # Request Donation Page for NGOs
 def request_donation(request):
-    return render(request, 'request_donation.html')
+    if(request.method == 'POST'):
+        form = RequestDonationForm(request.POST, request.FILES)
+        if form.is_valid():
+            requested_item = form.save(commit = False)
+            requested_item.donor = request.user
+            requested_item.save()
+            return redirect('home')
+    else:
+        form = RequestDonationForm()
+    return render(request, 'request_donation.html', {'form': form})
 
 # Explore Page
 def explore(request):
