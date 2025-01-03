@@ -53,7 +53,7 @@ class DonatedItem(models.Model):
     )
     date = models.DateTimeField(auto_now_add=True)
     claimed = models.BooleanField(default=False)
-    #img = models.ImageField()
+    img = models.ImageField(default='images/default_item_img.png', blank=True)
     
     def clean(self):
         """Custom validation logic for quantity field based on category."""
