@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CustomerRegistrationForm, DonateItemForm, RequestDonationForm
+from .models import DonatedItem, DonationRequest, Donation
 
 # Create your views here.
 
@@ -14,15 +15,15 @@ def register(request):
     if request.method == 'POST':
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()  # Save the user to the database
-            login(request, user)  # Automatically log in the user
-            return redirect('home')  # Redirect to the home page
+            user = form.save()
+            login(request, user)
+            return redirect('home')
     else:
         form = CustomerRegistrationForm()
     return render(request, 'register.html', {'form': form})
 
 # Login Page
-def login_view(request):  # Renamed to avoid conflict with django.contrib.auth.login
+def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -75,7 +76,19 @@ def request_donation(request):
 
 # Explore Page
 def explore(request):
-    return render(request, 'explore.html')
+    #Need to create the conntext dictionary so as to be able to use the variables to be displayed from db
+    unclaimed_donated_items = DonatedItem.objects.filter(claimed=False)
+    unreceived_donation_requests = DonationRequest.objects.filter(received=False)
+    pending_donations = Donation.objects.filter(pending=True).order_by('-item__date')
+    resolved_donations = Donation.objects.filter(pending=False).order_by('item__date')
+    context = {
+        'donated_items': unclaimed_donated_items,
+        'donation_requests': unreceived_donation_requests,
+        'pending_donations': pending_donations,
+        'resolved_donations': resolved_donations,
+    }
+
+    return render(request, 'explore.html', context)
 
 # Admin Page
 def admin(request):

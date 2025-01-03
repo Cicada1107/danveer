@@ -66,7 +66,7 @@ class DonatedItem(models.Model):
 
 
     def __str__(self):
-        return f"{self.item_description} is available for donation from the donor {self.donor}"
+        return f"{self.item_description}"
 
     class Meta:
         ordering = ['-date']
@@ -91,7 +91,7 @@ class DonationRequest(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.beneficiary} made the following donation request: {self.item_description}"
+        return f"{self.item_description}"
 
 class Donation(models.Model):
     donor = models.ForeignKey(Customer, limit_choices_to={'user_type': 'donor'}, related_name='donations_donated', on_delete=models.CASCADE)
@@ -100,4 +100,4 @@ class Donation(models.Model):
     pending = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Donation of {self.amount} from {self.donor} to {self.beneficiary}"
+        return f"Donation of {self.item} from {self.donor} to {self.beneficiary}"
