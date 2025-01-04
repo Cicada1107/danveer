@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Donation, Beneficiary, Donor
+from .models import *
 
 # Register your models here.
-admin.site.register(Donor)
-admin.site.register(Beneficiary)
+admin.site.register(Customer)
+admin.site.register(DonatedItem)
+admin.site.register(DonationRequest)
 admin.site.register(Donation)

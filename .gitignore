@@ -13,3 +13,6 @@ db.sqlite3
 # IDE files (e.g., VSCode)
 .vscode/
 .idea/
+
+#features to be added, for my reference
+reference.txt

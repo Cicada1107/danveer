@@ -1,3 +1,42 @@
+/*MAIN.HTML*/
+/*Navbar additional setup*/
+.navbar {
+    background: linear-gradient(to right, #0d99fd, #1100cc);
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inactive-navbar-link {
+    color: rgb(160, 211, 218) !important;
+}
+
+.dropdown {
+    margin-left: auto;  /* Pushes the profile button to the right */
+}
+
+/* General Buttons */
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #0044cc;
+    border-color: #003366;
+}
+
+/*Footer section*/
+footer {
+    background: linear-gradient(to right, #0d99fd, #1100cc);
+}
+
+
+/*HOME PAGE (home.html)*/
 /* Header Section */
 /* .title-section {
     background: linear-gradient(to right, #0d6efd, #0e00cc);
@@ -24,40 +63,68 @@
     margin-bottom: 30px;
 }
 
-
-/* Ordered List Styling */
-.row-section ol {
-    margin: 0 auto;
-    max-width: 600px;
-    padding-left: 20px;
-    font-size: 1.1rem;
+/* How it works section */
+.how-it-works-section{
+    overflow:hidden;
 }
 
-/* General Buttons */
-.btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    font-size: 1rem;
-    padding: 10px 20px;
+.how-it-works-section img{
+    float: left;
+    padding: 10px;
+    margin-right: 90px;
 }
 
-.btn-primary:hover {
-    background-color: #0044cc;
-    border-color: #003366;
-}
-
-section h2 {
+.how-it-works-section h1 {
     font-size: 2.5rem;
-    color: #ff5722; /* Example color */
     margin-bottom: 20px;
-    font-weight: bold;
 }
 
-.navbar-collapse {
+#how-it-works-hr {
+    width: 48%;
+    margin-left: auto;
+    margin-right: 0;
+    border: 1px solid #0d6dfd6d;
+}
+
+/*Feed Section*/
+hr {
+    margin: auto;
+    border: 1px solid #0d7dfd6a;
+}
+
+/* LOGIN PAGE (login.html) */
+.login-page-bg {
+    background: linear-gradient(to right, #0d99fd, #1100cc);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    height:auto /* Full viewport height */
 }
 
-.dropdown {
-    margin-left: auto;  /* Pushes the profile button to the right */
+.back-to-home {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.back-to-home img {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    cursor: pointer;
+}
+
+/* REGISTRATION PAGE (Register.html)*/
+
+/* LOGIN PAGE (login.html) */
+
+/* EXPLORE PAGE (explore.html) */
+.showcase-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.showcase-section p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
 }
