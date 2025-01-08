@@ -16,6 +16,8 @@ def validate_quantity(category, quantity):
 
 # Create your models here.
 class Customer(AbstractUser):
+    first_name = models.TextField(max_length=100, null=False, blank=False)
+    last_name = models.TextField(max_length=100, null=False, blank=False)
     email = models.EmailField(unique=True)
     user_type = models.CharField(
         max_length=11, 

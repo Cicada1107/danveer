@@ -14,8 +14,10 @@ class CustomerRegistrationForm(UserCreationForm):
 
     class Meta:
         model = Customer
-        fields = ['username', 'email', 'password1', 'password2', 'user_type', 'location']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'user_type', 'location']
         widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'password1': forms.PasswordInput(attrs={'class': 'form-control'}),

@@ -3,27 +3,24 @@ from django import forms
 class LocationWidget(forms.MultiWidget):
     def __init__(self, attrs=None):
         widgets = [
+            forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Locality'}),
             forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}),
             forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State'}),
-            forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Zip Code'}),
+            forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Pin Code'}),
         ]
         super().__init__(widgets, attrs)
 
     def decompress(self, value):
         if value:
             return value.split(',')
-        return ['', '', '']
-
-    def format_output(self, rendered_widgets):
-        return '<div class="form-row">{}</div>'.format(''.join(
-            '<div class="col">{}</div>'.format(widget) for widget in rendered_widgets
-        ))
+        return ['', '', '', '']
 
 class LocationField(forms.MultiValueField):
     widget = LocationWidget
 
     def __init__(self, *args, **kwargs):
         fields = [
+            forms.CharField(),
             forms.CharField(),
             forms.CharField(),
             forms.CharField(),
