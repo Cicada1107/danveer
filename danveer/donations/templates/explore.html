@@ -38,13 +38,13 @@
                     <p class="card-text">Quantity: {{item.quantity}} units</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Donor: @{{item.donor}}</li>
-                    <li class="list-group-item">Location: {{item.location}}</li>
-                    <li class="list-group-item">Date: {{item.date}}</li>
+                    <li class="list-group-item">Donor: {{item.donor.first_name}} {{item.donor.last_name}} (@{{item.donor.username}})</li>
+                    <li class="list-group-item">Location: {{item.donor.location}}</li>
+                    <li class="list-group-item">Time: {{item.date}}</li>
                 </ul>
                 <div class="card-body">
                     <a href="#" class="card-link">Claim</a>
-                    <!--when this is clicked, this should become the email.id of the donor and the current user should get an alert saying you have successfully claimed the Donation. Then this should become a Donation object in the backend.-->
+                    <!--when this is clicked, this should become the email.id of the donor and the current user should get an alert saying you have successfully claimed the Donation or a chat instance between them should begin. Then this should become a Donation object in the backend.-->
                 </div>
             </div>
         </div>
@@ -64,9 +64,9 @@
                     <p class="card-text">Quantity: {{d_request.quantity}} units</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Beneficiary: @{{d_request.beneficiary}}</li>
+                    <li class="list-group-item">Beneficiary: {{d_request.beneficiary.first_name}} {{d_request.beneficiary.last_name}} (@{{d_request.beneficiary}})</li>
                     <li class="list-group-item">Location: {{d_request.beneficiary.location}}</li>
-                    <li class="list-group-item">Date: {{d_request.date}}</li>
+                    <li class="list-group-item">Time: {{d_request.date}}</li>
                 </ul>
                 <div class="card-body">
                     <a href="#" class="card-link">Donate</a>

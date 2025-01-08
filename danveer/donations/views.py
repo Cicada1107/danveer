@@ -67,7 +67,7 @@ def request_donation(request):
         form = RequestDonationForm(request.POST, request.FILES)
         if form.is_valid():
             requested_item = form.save(commit = False)
-            requested_item.donor = request.user
+            requested_item.beneficiary = request.user
             requested_item.save()
             return redirect('home')
     else:
