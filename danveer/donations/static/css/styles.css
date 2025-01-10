@@ -49,6 +49,9 @@ footer {
 }
 
 .title-section img{
+    max-width: 100%;
+    height: auto;
+    display: block;
     float: right;
     padding: 10px;
 }
@@ -69,6 +72,9 @@ footer {
 }
 
 .how-it-works-section img{
+    max-width: 100%;
+    height: auto;
+    display: block;
     float: left;
     padding: 10px;
     margin-right: 90px;
