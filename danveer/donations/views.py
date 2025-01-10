@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CustomerRegistrationForm, DonateItemForm, RequestDonationForm
-from .models import DonatedItem, DonationRequest, Donation
+from .forms import CustomerRegistrationForm, DonateItemForm, RequestDonationForm, ChatMessageForm
+from .models import DonatedItem, DonationRequest, Donation, ChatMessage, Customer
+from django.db.models import Q
 
 # Create your views here.
 
@@ -46,7 +48,7 @@ def profile(request):
 
 # Confirm Donation Page
 def confirm(request):
-    return render(request, 'confirm.html')
+    return render(request, 'confirmation.html')
 
 # Donate Page for Donors
 def donate(request):
@@ -76,7 +78,7 @@ def request_donation(request):
 
 # Explore Page
 def explore(request):
-    #Need to create the conntext dictionary so as to be able to use the variables to be displayed from db
+    #Need to create the context dictionary so as to be able to use the variables to be displayed from db
     unclaimed_donated_items = DonatedItem.objects.filter(claimed=False)
     unreceived_donation_requests = DonationRequest.objects.filter(received=False)
     pending_donations = Donation.objects.filter(pending=True).order_by('-item__date')
@@ -89,6 +91,34 @@ def explore(request):
     }
 
     return render(request, 'explore.html', context)
+
+@login_required
+def chat(request, receiver_id):
+    receiver = Customer.objects.get(id=receiver_id)
+    sender = request.user
+    if request.method == 'POST':
+        form = ChatMessageForm(request.POST)
+        if form.is_valid():
+            chat_message = form.save(commit=False)
+            chat_message.sender = sender
+            chat_message.receiver = receiver
+            chat_message.save()
+            return redirect('chat', receiver_id=receiver.id)
+
+    else:
+        form = ChatMessageForm()
+
+    messages = ChatMessage.objects.filter(
+        (Q(sender=sender) & Q(receiver=receiver)) |
+        (Q(sender=receiver) & Q(receiver=sender))
+    ).order_by('timestamp')
+
+    context = {
+        'form': form,
+        'messages': messages,
+        'receiver': receiver,
+    }
+    return render(request, 'chat.html', context)
 
 # Admin Page
 def admin(request):

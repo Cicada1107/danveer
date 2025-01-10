@@ -1,5 +1,5 @@
 from django import forms
-from .models import Customer, DonatedItem, DonationRequest
+from .models import Customer, DonatedItem, DonationRequest, ChatMessage
 from django.contrib.auth.forms import UserCreationForm
 from .widgets import LocationField
 
@@ -44,4 +44,12 @@ class RequestDonationForm(forms.ModelForm):
             'item_description': forms.TextInput(attrs={'class': 'form-control'}),
             'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
             'img': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+
+class ChatMessageForm(forms.ModelForm):
+    class Meta:
+        model = ChatMessage
+        fields = ['message']
+        widgets = {
+            'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }

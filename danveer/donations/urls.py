@@ -11,5 +11,6 @@ urlpatterns = [
     path('confirm/', views.confirm, name='confirm'),  # Confirm page
     path('request-donation/', views.request_donation, name='request_donation'),  # Request donation page
     path('explore/', views.explore, name='explore'),  # Explore page
+    path('chat/<int:receiver_id>/', views.chat, name='chat'), #Chat page
     path('admin/', views.admin, name='admin'),  # Admin page
 ]
