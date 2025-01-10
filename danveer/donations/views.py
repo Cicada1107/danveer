@@ -126,12 +126,11 @@ def chat(request, receiver_id):
     }
     return render(request, 'chat.html', context)
 
-#Chat view for donors logic
 @login_required
-def donor_chats(request):
-    donor = request.user
-    sent_chats = ChatMessage.objects.filter(sender=donor).values('receiver').distinct()
-    received_chats = ChatMessage.objects.filter(receiver=donor).values('sender').distinct()
+def user_chats(request):
+    user = request.user  # request.user is already a Customer instance
+    sent_chats = ChatMessage.objects.filter(sender=user).values('receiver').distinct()
+    received_chats = ChatMessage.objects.filter(receiver=user).values('sender').distinct()
 
     chat_partners = set()
     for chat in sent_chats:
@@ -144,7 +143,7 @@ def donor_chats(request):
     context = {
         'chat_partners': chat_partners,
     }
-    return render(request, 'donor_chats.html', context)
+    return render(request, 'user_chats.html', context)
 
 # Admin Page
 def admin(request):
