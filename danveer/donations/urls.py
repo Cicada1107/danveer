@@ -12,5 +12,6 @@ urlpatterns = [
     path('request-donation/', views.request_donation, name='request_donation'),  # Request donation page
     path('explore/', views.explore, name='explore'),  # Explore page
     path('chat/<int:receiver_id>/', views.chat, name='chat'), #Chat page
+    path('donor-chats/', views.donor_chats, name='donor_chats'), #Donor's chats
     path('admin/', views.admin, name='admin'),  # Admin page
 ]

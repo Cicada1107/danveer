@@ -43,8 +43,13 @@ def custom_logout(request):
     return redirect('home')
 
 # Profile Page
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
+    user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, 'profile.html', context)
 
 # Confirm Donation Page
 def confirm(request):
@@ -92,6 +97,7 @@ def explore(request):
 
     return render(request, 'explore.html', context)
 
+#Chat page logic
 @login_required
 def chat(request, receiver_id):
     receiver = Customer.objects.get(id=receiver_id)
@@ -119,6 +125,26 @@ def chat(request, receiver_id):
         'receiver': receiver,
     }
     return render(request, 'chat.html', context)
+
+#Chat view for donors logic
+@login_required
+def donor_chats(request):
+    donor = request.user
+    sent_chats = ChatMessage.objects.filter(sender=donor).values('receiver').distinct()
+    received_chats = ChatMessage.objects.filter(receiver=donor).values('sender').distinct()
+
+    chat_partners = set()
+    for chat in sent_chats:
+        chat_partners.add(chat['receiver'])
+    for chat in received_chats:
+        chat_partners.add(chat['sender'])
+
+    chat_partners = Customer.objects.filter(id__in=chat_partners)
+    
+    context = {
+        'chat_partners': chat_partners,
+    }
+    return render(request, 'donor_chats.html', context)
 
 # Admin Page
 def admin(request):

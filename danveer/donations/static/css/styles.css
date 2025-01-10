@@ -17,7 +17,7 @@
     margin-left: auto;  /* Pushes the profile button to the right */
 }
 
-/* General Buttons */
+/* General Stuff */
 .btn-primary {
     background-color: #0d6efd;
     border-color: #0d6efd;
@@ -116,7 +116,6 @@ hr {
 
 /* REGISTRATION PAGE (Register.html)*/
 
-/* LOGIN PAGE (login.html) */
 
 /* EXPLORE PAGE (explore.html) */
 .showcase-section h1 {
@@ -148,4 +147,15 @@ hr {
 
 .message.received {
     text-align: left;
+}
+
+/* PROFILE PAGE (profile.html) */
+
+.profile.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+.profile.card {
+    margin-top: 20px;
 }
