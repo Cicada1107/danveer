@@ -106,15 +106,15 @@ def chat(request, receiver_id, item_id):
     try:
         if DonatedItem.objects.filter(id=item_id).exists():
             target = get_object_or_404(DonatedItem, id=item_id)
-            card_creator = target.donor  # Donor is the card creator for donated items
+            card_creator = target.donor
             action_type = 'Claim'
         elif DonationRequest.objects.filter(id=item_id).exists():
             target = get_object_or_404(DonationRequest, id=item_id)
-            card_creator = target.beneficiary  # Beneficiary is the card creator for donation requests
+            card_creator = target.beneficiary
             action_type = 'Pledge'
     except Exception as e:
         messages.error(request, f"Error finding target: {str(e)}")
-        return redirect('profile')  # Or another appropriate page
+        return redirect('profile')
 
     # Handle chat message submission
     if request.method == 'POST':
@@ -159,7 +159,7 @@ def accept_request(request, receiver_id, item_id):
             item.claimed = True
             item.save()
         elif request.user.user_type == 'beneficiary':
-            donation_request = get_object_or_404(DonationRequest, id=item_id, donor=receiver)
+            donation_request = get_object_or_404(DonationRequest, id=item_id, beneficiary=sender)
             item = DonatedItem.objects.create(
                 category=donation_request.category,
                 item_description=donation_request.item_description,
@@ -170,6 +170,8 @@ def accept_request(request, receiver_id, item_id):
             Donation.objects.create(donor=receiver, beneficiary=sender, item=item, pending=False)
             donation_request.received = True
             donation_request.save()
+            item.claimed = True
+            item.save()
         messages.success(request, 'Request accepted successfully.')
     except Exception as e:
         messages.error(request, f"Error processing the request: {str(e)}")
