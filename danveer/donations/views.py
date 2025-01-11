@@ -132,7 +132,7 @@ def chat(request, receiver_id, item_id):
     # Retrieve chat messages
     messages = ChatMessage.objects.filter(
         (Q(sender=sender) & Q(receiver=receiver)) |
-        (Q(sender=receiver) & Q(sender=sender))
+        (Q(sender=receiver) & Q(receiver=sender))
     ).order_by('timestamp')
 
     # Pass context to template
