@@ -154,10 +154,10 @@ def accept_request(request, receiver_id, item_id):
     try:
         if request.user.user_type == 'donor':
             item = get_object_or_404(DonatedItem, id=item_id, donor=sender)
-            #need to create a DonatedItem now, to represent what the donor is donating to the ngo, to show in their profile
             Donation.objects.create(donor=sender, beneficiary=receiver, item=item, pending=False)
             item.claimed = True
             item.save()
+            item.delete()
         elif request.user.user_type == 'beneficiary':
             donation_request = get_object_or_404(DonationRequest, id=item_id, beneficiary=sender)
             item = DonatedItem.objects.create(
@@ -172,6 +172,8 @@ def accept_request(request, receiver_id, item_id):
             donation_request.save()
             item.claimed = True
             item.save()
+            item.delete()
+            donation_request.delete()
         messages.success(request, 'Request accepted successfully.')
     except Exception as e:
         messages.error(request, f"Error processing the request: {str(e)}")
