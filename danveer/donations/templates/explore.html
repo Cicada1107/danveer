@@ -43,8 +43,7 @@
                     <li class="list-group-item">Time: {{item.date}}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="{% url 'chat' item.donor.id %}" class="card-link">Claim</a>
-                    <!--when this is clicked, this should become the email.id of the donor and the current user should get an alert saying you have successfully claimed the Donation or a chat instance between them should begin. Then this should become a Donation object in the backend.-->
+                    <a href="{% url 'chat' item.donor.id item.id %}" class="card-link">Claim</a>
                 </div>
             </div>
         </div>
@@ -69,7 +68,7 @@
                     <li class="list-group-item">Time: {{d_request.date}}</li>
                 </ul>
                 <div class="card-body">
-                    <a href="{% url 'chat' d_request.beneficiary.id %}" class="card-link">Pledge Donation</a>
+                    <a href="{% url 'chat' d_request.beneficiary.id d_request.id %}" class="card-link">Pledge Donation</a>
                     <!--when this is clicked, this should become the email.id of the beneficiary and the current user should get an alert saying you have successfully accepted the donation request. Then this should become a Donation object in the backend.-->
                 </div>
             </div>

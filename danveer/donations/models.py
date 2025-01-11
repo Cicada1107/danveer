@@ -109,6 +109,7 @@ class ChatMessage(models.Model):
     receiver = models.ForeignKey(Customer, related_name='received_messages', on_delete=models.CASCADE)
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    item_id = models.IntegerField() #The item about which the users are talking
 
     def __str__(self):
         return f"Message from {self.sender} to {self.receiver} at {self.timestamp}"

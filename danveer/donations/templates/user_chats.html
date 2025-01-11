@@ -3,9 +3,9 @@
 <div class="container py-5">
     <h1 class="text-center mb-4">Your Chats</h1>
     <div class="list-group">
-        {% for partner in chat_partners %}
-            <a href="{% url 'chat' partner.id %}" class="list-group-item list-group-item-action">
-                Chat with {{ partner.username }}
+        {% for chat in chat_data %}
+            <a href="{% url 'chat' chat.partner.id chat.item_id %}" class="list-group-item list-group-item-action">
+                Chat with {{ chat.partner.first_name }} {{ chat.partner.last_name }} (@{{ chat.partner.username }})
             </a>
         {% endfor %}
     </div>

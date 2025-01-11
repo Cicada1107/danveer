@@ -16,10 +16,16 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Send</button>
     </form>
-</div>
 
-<!--Approve button for the card creater section-->
-<!--on pressing this button, make a Donation object from the info from the card and remove the DonatedItem/DonationRequest-->
+    <!--Approve button for the card creater section-->
+    <!--on pressing this button, make a Donation object from the info from the card and remove the DonatedItem/DonationRequest-->
+    {% if user == card_creator %}
+    <form method="post" action="{% url 'accept_request' receiver.id  item.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success mt-3">Accept {{ action_type }}</button>        
+    </form>
+    {% endif %}
+</div>
 
 <!--3rd party delivery setup section-->
 
