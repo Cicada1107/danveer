@@ -7,16 +7,16 @@
     <h2>Recent Donations</h2>
     <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div class="container">
-        {% for donation in resolved_donations %}
         <div class="row">
+        {% for donation in resolved_donations %}
             <div class="card col-lg-3" style="width: 10rem;">
                 <img class="card-img-top" src="{{donation.item.img.url}}" alt="Card image cap">
                 <div class="card-body">
                     <p class="card-text">{{donation.donor}} donated {{donation.item}} to {{donation.beneficiary}}<br></p>
                 </div>
             </div>
-        </div>
         {% endfor %}
+        </div>
     </div>
 </div>
 <hr style="margin-top: 10px; margin-bottom: 10px;">
@@ -29,8 +29,8 @@
     <h2>Unclaimed Donations Available</h2>
     <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div class="container">
-        {% for item in unclaimed_donated_items %}
         <div class="row">
+        {% for item in unclaimed_donated_items %}
             <div class="col-lg-3 card" style="width: 10rem;">
                 <img class="card-img-top" src="{{item.img.url}}" alt="Card image cap">
                 <div class="card-body">
@@ -46,16 +46,16 @@
                     <a href="{% url 'chat' item.donor.id item.id %}" class="card-link">Claim</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
     <hr style="margin-top: 10px; margin-bottom: 10px;">
     {% elif user.user_type == 'donor' %}
     <h2>Donation Requests</h2>
     <hr style="margin-top: 10px; margin-bottom: 10px;">
     <div class="container">
-        {% for d_request in unreceived_donation_requests %}
         <div class="row">
+        {% for d_request in unreceived_donation_requests %}
             <div class="col-lg-3 card" style="width: 18rem;">
                 <img class="card-img-top" src="{{d_request.img.url}}" alt="Card image cap">
                 <div class="card-body">
@@ -69,11 +69,10 @@
                 </ul>
                 <div class="card-body">
                     <a href="{% url 'chat' d_request.beneficiary.id d_request.id %}" class="card-link">Pledge Donation</a>
-                    <!--when this is clicked, this should become the email.id of the beneficiary and the current user should get an alert saying you have successfully accepted the donation request. Then this should become a Donation object in the backend.-->
                 </div>
             </div>
-        </div>
         {% endfor %}
+        </div>
     </div>
     <hr style="margin-top: 10px; margin-bottom: 10px;">
     {% endif %}
