@@ -152,18 +152,30 @@ def accept_request(request, receiver_id, item_id):
     receiver = get_object_or_404(Customer, id=receiver_id)
     sender = request.user
 
+    # try:
     if request.user.user_type == 'donor':
         item = get_object_or_404(DonatedItem, id=item_id, donor=sender)
+        #need to create a DonatedItem now, to represent what the donor is donating to the ngo, to show in their profile
         Donation.objects.create(donor=sender, beneficiary=receiver, item=item, pending=False)
         item.claimed = True
         item.save()
     elif request.user.user_type == 'beneficiary':
-        request_item = get_object_or_404(DonationRequest, id=item_id, beneficiary=sender)
-        Donation.objects.create(donor=receiver, beneficiary=sender, item=request_item, pending=False)
-        request_item.received = True
-        request_item.save()
-
+        donation_request = get_object_or_404(DonationRequest, id=item_id, donor=receiver)
+        item = DonatedItem.objects.create(
+            category=donation_request.category,
+            item_description=donation_request.item_description,
+            quantity=donation_request.quantity,
+            donor=receiver,
+            img=donation_request.img
+        )
+        Donation.objects.create(donor=receiver, beneficiary=sender, item=item, pending=False)
+        donation_request.received = True
+        donation_request.save()
     messages.success(request, 'Request accepted successfully.')
+    # except Exception as e:
+    #     messages.error(request, f"Error processing the request: {str(e)}")
+    #     return redirect('chat', receiver_id=receiver.id, item_id=item_id)
+
     return redirect('chat', receiver_id=receiver.id, item_id=item_id)
         
 
