@@ -17,7 +17,7 @@
     margin-left: auto;  /* Pushes the profile button to the right */
 }
 
-/* General Buttons */
+/* General Stuff */
 .btn-primary {
     background-color: #0d6efd;
     border-color: #0d6efd;
@@ -49,8 +49,9 @@ footer {
 }
 
 .title-section img{
-    float: right;
-    padding: 10px;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .title-section h1 {
@@ -69,9 +70,9 @@ footer {
 }
 
 .how-it-works-section img{
-    float: left;
-    padding: 10px;
-    margin-right: 90px;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .how-it-works-section h1 {
@@ -80,9 +81,6 @@ footer {
 }
 
 #how-it-works-hr {
-    width: 48%;
-    margin-left: auto;
-    margin-right: 0;
     border: 1px solid #0d6dfd6d;
 }
 
@@ -116,7 +114,6 @@ hr {
 
 /* REGISTRATION PAGE (Register.html)*/
 
-/* LOGIN PAGE (login.html) */
 
 /* EXPLORE PAGE (explore.html) */
 .showcase-section h1 {
@@ -127,4 +124,39 @@ hr {
 .showcase-section p {
     font-size: 1.25rem;
     margin-bottom: 30px;
+}
+
+/* CHAT PAGE (chat.html) */
+.chat-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 400px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message.sent {
+    background-color: #d1e7dd;
+    text-align: right;
+}
+
+.message.received {
+    background-color: #f8d7da;
+    text-align: left;
+}
+/* PROFILE PAGE (profile.html) */
+
+.profile.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+.profile.card {
+    margin-top: 20px;
 }

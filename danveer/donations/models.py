@@ -16,6 +16,8 @@ def validate_quantity(category, quantity):
 
 # Create your models here.
 class Customer(AbstractUser):
+    first_name = models.TextField(max_length=100, null=False, blank=False)
+    last_name = models.TextField(max_length=100, null=False, blank=False)
     email = models.EmailField(unique=True)
     user_type = models.CharField(
         max_length=11, 
@@ -101,3 +103,13 @@ class Donation(models.Model):
 
     def __str__(self):
         return f"Donation of {self.item} from {self.donor} to {self.beneficiary}"
+    
+class ChatMessage(models.Model):
+    sender = models.ForeignKey(Customer, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(Customer, related_name='received_messages', on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    item_id = models.IntegerField() #The item about which the users are talking
+
+    def __str__(self):
+        return f"Message from {self.sender} to {self.receiver} at {self.timestamp}"

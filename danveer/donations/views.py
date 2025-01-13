@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CustomerRegistrationForm, DonateItemForm, RequestDonationForm
-from .models import DonatedItem, DonationRequest, Donation
+from .forms import CustomerRegistrationForm, DonateItemForm, RequestDonationForm, ChatMessageForm
+from .models import DonatedItem, DonationRequest, Donation, ChatMessage, Customer
+from django.db.models import Q
 
 # Create your views here.
 
@@ -41,12 +43,13 @@ def custom_logout(request):
     return redirect('home')
 
 # Profile Page
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
-
-# Confirm Donation Page
-def confirm(request):
-    return render(request, 'confirm.html')
+    user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, 'profile.html', context)
 
 # Donate Page for Donors
 def donate(request):
@@ -67,7 +70,7 @@ def request_donation(request):
         form = RequestDonationForm(request.POST, request.FILES)
         if form.is_valid():
             requested_item = form.save(commit = False)
-            requested_item.donor = request.user
+            requested_item.beneficiary = request.user
             requested_item.save()
             return redirect('home')
     else:
@@ -76,7 +79,7 @@ def request_donation(request):
 
 # Explore Page
 def explore(request):
-    #Need to create the conntext dictionary so as to be able to use the variables to be displayed from db
+    #Need to create the context dictionary so as to be able to use the variables to be displayed from db
     unclaimed_donated_items = DonatedItem.objects.filter(claimed=False)
     unreceived_donation_requests = DonationRequest.objects.filter(received=False)
     pending_donations = Donation.objects.filter(pending=True).order_by('-item__date')
@@ -90,6 +93,120 @@ def explore(request):
 
     return render(request, 'explore.html', context)
 
-# Admin Page
+#Chat page logic
+@login_required
+def chat(request, receiver_id, item_id):
+    receiver = get_object_or_404(Customer, id=receiver_id)
+    sender = request.user
+    target = None
+    card_creator = None
+    action_type = None
+
+    # Determine the target object and action type
+    try:
+        if DonatedItem.objects.filter(id=item_id).exists():
+            target = get_object_or_404(DonatedItem, id=item_id)
+            card_creator = target.donor
+            action_type = 'Claim'
+        elif DonationRequest.objects.filter(id=item_id).exists():
+            target = get_object_or_404(DonationRequest, id=item_id)
+            card_creator = target.beneficiary
+            action_type = 'Pledge'
+    except Exception as e:
+        messages.error(request, f"Error finding target: {str(e)}")
+        return redirect('profile')
+
+    # Handle chat message submission
+    if request.method == 'POST':
+        form = ChatMessageForm(request.POST)
+        if form.is_valid():
+            chat_message = form.save(commit=False)
+            chat_message.sender = sender
+            chat_message.receiver = receiver
+            chat_message.item_id = item_id
+            chat_message.save()
+            return redirect('chat', receiver_id=receiver.id, item_id=item_id)
+    else:
+        form = ChatMessageForm()
+
+    # Retrieve chat messages
+    messages = ChatMessage.objects.filter(
+        (Q(sender=sender) & Q(receiver=receiver)) |
+        (Q(sender=receiver) & Q(receiver=sender))
+    ).order_by('timestamp')
+
+    # Pass context to template
+    context = {
+        'form': form,
+        'messages': messages,
+        'receiver': receiver,
+        'card_creator': card_creator,
+        'action_type': action_type,
+        'item': target,
+    }
+    return render(request, 'chat.html', context)
+
+
+@login_required
+def accept_request(request, receiver_id, item_id):
+    receiver = get_object_or_404(Customer, id=receiver_id)
+    sender = request.user
+    try:
+        if request.user.user_type == 'donor':
+            item = get_object_or_404(DonatedItem, id=item_id, donor=sender)
+            Donation.objects.create(donor=sender, beneficiary=receiver, item=item, pending=False)
+            item.claimed = True
+            item.save()
+            item.delete()
+        elif request.user.user_type == 'beneficiary':
+            donation_request = get_object_or_404(DonationRequest, id=item_id, beneficiary=sender)
+            item = DonatedItem.objects.create(
+                category=donation_request.category,
+                item_description=donation_request.item_description,
+                quantity=donation_request.quantity,
+                donor=receiver,
+                img=donation_request.img
+            )
+            Donation.objects.create(donor=receiver, beneficiary=sender, item=item, pending=False)
+            donation_request.received = True
+            donation_request.save()
+            item.claimed = True
+            item.save()
+            item.delete()
+            donation_request.delete()
+        messages.success(request, 'Request accepted successfully.')
+    except Exception as e:
+        messages.error(request, f"Error processing the request: {str(e)}")
+        return redirect('chat', receiver_id=receiver.id, item_id=item_id)
+
+    return redirect('chat', receiver_id=receiver.id, item_id=item_id)
+        
+
+@login_required
+def user_chats(request):
+    user = request.user
+    sent_chats = ChatMessage.objects.filter(sender=user).values('receiver', 'item_id').distinct()
+    received_chats = ChatMessage.objects.filter(receiver=user).values('sender', 'item_id').distinct()
+
+    chat_partners = set()
+    for chat in sent_chats:
+        chat_partners.add((chat['receiver'], chat['item_id']))
+    for chat in received_chats:
+        chat_partners.add((chat['sender'], chat['item_id']))
+
+    chat_data = []
+    for partner_id, item_id in chat_partners:
+        partner = Customer.objects.get(id=partner_id)
+        chat_data.append({
+            'partner': partner,
+            'item_id': item_id
+        })
+
+    context = {
+        'chat_data': chat_data,
+    }
+    return render(request, 'user_chats.html', context)
+
+#admin view
 def admin(request):
-    return render(request, 'admin.html')
+    return render(request, 'admint.html')
