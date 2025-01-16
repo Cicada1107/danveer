@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
+# from geopy.geocoders import Nominatim
 
 # Utility for quantity validation
 def validate_quantity(category, quantity):
@@ -15,6 +16,7 @@ def validate_quantity(category, quantity):
     
 
 # Create your models here.
+
 class Customer(AbstractUser):
     first_name = models.TextField(max_length=100, null=False, blank=False)
     last_name = models.TextField(max_length=100, null=False, blank=False)
@@ -27,9 +29,8 @@ class Customer(AbstractUser):
         verbose_name='User Role', 
         help_text='Select the role of the user (Donor or Beneficiary)'
     )
-    location = models.CharField(
-        max_length=200,
-        help_text='Enter the location of the user')
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
 
     def __str__(self):
         return self.username
@@ -82,6 +83,7 @@ class DonationRequest(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     received = models.BooleanField(default=False)
     img = models.ImageField(default='images/default_request_img.png', blank=True, help_text='Provide a picture of organization/needy')
+
 
     def clean(self):
         """Custom validation logic for quantity field based on category."""

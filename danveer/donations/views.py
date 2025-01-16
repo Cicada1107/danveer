@@ -5,6 +5,7 @@ from django.contrib import messages
 from .forms import CustomerRegistrationForm, DonateItemForm, RequestDonationForm, ChatMessageForm
 from .models import DonatedItem, DonationRequest, Donation, ChatMessage, Customer
 from django.db.models import Q
+from geopy.geocoders import Nominatim
 
 # Create your views here.
 
@@ -17,9 +18,20 @@ def register(request):
     if request.method == 'POST':
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
+            user = form.save(commit=False)
+            location_data = form.cleaned_data['location']
+            geolocator = Nominatim(user_agent="danveer")
+            location_str = location_data
+            location = geolocator.geocode(location_str)
+            if location:
+                user.latitude = location.latitude;
+                user.longitude = location.longitude;
+                user.save()
+                login(request, user)
+                return redirect('home')
+            else:
+                messages
+
     else:
         form = CustomerRegistrationForm()
     return render(request, 'register.html', {'form': form})
