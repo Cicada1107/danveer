@@ -30,7 +30,8 @@ def register(request):
                 login(request, user)
                 return redirect('home')
             else:
-                messages
+                messages.error(request, 'Location not found. Please enter a valid location.')
+                return redirect('register')
 
     else:
         form = CustomerRegistrationForm()
