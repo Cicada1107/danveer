@@ -24,8 +24,9 @@ def register(request):
             location_str = location_data
             location = geolocator.geocode(location_str)
             if location:
-                user.latitude = location.latitude;
-                user.longitude = location.longitude;
+                user.latitude = location.latitude
+                user.longitude = location.longitude
+                user.location = location.address
                 user.save()
                 login(request, user)
                 return redirect('home')

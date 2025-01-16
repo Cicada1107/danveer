@@ -31,6 +31,7 @@ class Customer(AbstractUser):
     )
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    location = models.TextField(max_length=200, null=False, blank=True)
 
     def __str__(self):
         return self.username
