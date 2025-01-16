@@ -29,8 +29,8 @@ class Customer(AbstractUser):
         verbose_name='User Role', 
         help_text='Select the role of the user (Donor or Beneficiary)'
     )
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True)
     location = models.TextField(max_length=200, null=False, blank=True)
 
     def __str__(self):
