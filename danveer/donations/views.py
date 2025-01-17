@@ -126,6 +126,7 @@ def explore(request):
         'unreceived_donation_requests': unreceived_donation_requests,
         'pending_donations': pending_donations,
         'resolved_donations': resolved_donations,
+        'user': user,
     }
 
     return render(request, 'explore.html', context)
