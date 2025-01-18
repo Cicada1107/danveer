@@ -1,0 +1,4 @@
+Django
+Pillow
+geopy
+python-dotenv

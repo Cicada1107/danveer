@@ -1,0 +1,17 @@
+{
+    "builds": [
+      {
+        "src": "danveer/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "danveer/wsgi.py"
+      }
+    ],
+    "env": {
+      "DJANGO_SETTINGS_MODULE": "danveer.settings"
+    }
+}
