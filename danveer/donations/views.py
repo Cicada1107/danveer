@@ -95,28 +95,32 @@ def request_donation(request):
 def explore(request):
     #Need to create the context dictionary so as to be able to use the variables to be displayed from db
     user = request.user
+    unclaimed_donated_items = []
+    unreceived_donation_requests = [] 
+    donated_items_with_distance = []
+    requests_with_distance = []
     if user.is_authenticated:
         unclaimed_donated_items = DonatedItem.objects.filter(claimed=False)
         unreceived_donation_requests = DonationRequest.objects.filter(received=False)
         user_location = (user.latitude, user.longitude)
 
-    donated_items_with_distance = []
-    for item in unclaimed_donated_items:
-        item_location = (item.donor.latitude, item.donor.longitude)
-        distance = geodesic(user_location, item_location).kilometers
-        donated_items_with_distance.append((item, distance))
+        donated_items_with_distance = []
+        for item in unclaimed_donated_items:
+            item_location = (item.donor.latitude, item.donor.longitude)
+            distance = geodesic(user_location, item_location).kilometers
+            donated_items_with_distance.append((item, distance))
 
-    requests_with_distance = []
-    for request in unreceived_donation_requests:
-        request_location = (request.beneficiary.latitude, request.beneficiary.longitude)
-        distance = geodesic(user_location, request_location).kilometers
-        requests_with_distance.append((request, distance))
+        requests_with_distance = []
+        for request in unreceived_donation_requests:
+            request_location = (request.beneficiary.latitude, request.beneficiary.longitude)
+            distance = geodesic(user_location, request_location).kilometers
+            requests_with_distance.append((request, distance))
 
-    donated_items_with_distance.sort(key=lambda x: x[1])
-    requests_with_distance.sort(key=lambda x: x[1])
+        donated_items_with_distance.sort(key=lambda x: x[1])
+        requests_with_distance.sort(key=lambda x: x[1])
 
-    unclaimed_donated_items = [item for item, _ in donated_items_with_distance]
-    unreceived_donation_requests = [request for request, _ in requests_with_distance]
+        unclaimed_donated_items = [item for item, _ in donated_items_with_distance]
+        unreceived_donation_requests = [request for request, _ in requests_with_distance]
 
     pending_donations = Donation.objects.filter(pending=True).order_by('-item__date')
     resolved_donations = Donation.objects.filter(pending=False).order_by('item__date')
