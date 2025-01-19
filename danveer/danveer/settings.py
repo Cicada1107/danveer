@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-oh*@hnu-f2=y82ct)(3e48!h#7#zm#utu)&_m#@y!0q6&pwd+q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -82,6 +82,14 @@ DATABASES = {
     }
 }
 
+if os.environ.get('VERCEL'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:'
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -119,9 +127,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = 'media/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
