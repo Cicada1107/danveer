@@ -6,8 +6,8 @@ Members: Arijit Dubey
 ---------------------  
 **PROJECT DOMAIN**  
 Type: Web Development  
-Stack: Python(Django) , Bootstrap + Vanilla CSS, Leaflet.js, SQLite, Geopy  
-Requirements: (Refer requirements.txt) Geopy, Pillow, Django, Python Dot Env, Pipenv  
+Stack: Python(Django) , Bootstrap + Vanilla CSS, Leaflet.js, Geopy, PostgreSQL  
+Requirements: (Refer requirements.txt) Geopy, Pillow, Django, Python Dotenv, Pipenv, whitenoise    
 ---------------------  
 **IDEA**  
 In 2023, almost 700 million people worldwide lived on less than $2.15 per day.
@@ -27,7 +27,9 @@ NGOs nearby.
 4. _GEOLOCATION_: Each user can input their preferred address, as per which, the donation requests/donated items will appear in closest-first basis, thus making it more likely for the request to get accepted/claimed by a Donor/NGo respectively. This is further made intuitive by the presence of a map view of all the requests from your location right on the explroe page.  
 5. _ONLINE CHAT_: If you decide to Claim an item from a donor or Pledge to donate a request to an NGO, go ahead and chat with them about its details, discuss your deal/delivery on your own and the if settled, the request maker can approve the request on the click of a button.  
 7. _DISPLAY SECTION_: Recently made donations are displayed on the top of the explore page to motivate and ecnourage users to donate.
-------------------
+------------------  
+_Link to the project: https://daanveer.onrender.com_  
+------------------  
 **HOW TO RUN THE CODE SAMPLE**  
 NOTE: I recommend to use pipenv and create a virtual environement for this project so as to not burden your pc with current specific verisions of dependencies (requirements.txt).  
 _Prerequisites_:  
